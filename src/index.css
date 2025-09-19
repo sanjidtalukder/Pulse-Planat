@@ -2,41 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Cinematic Sci-Fi City Health Dashboard Design System
+All colors MUST be HSL for consistency across light/dark modes.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
+    /* Core Space Theme */
+    --background: 222 47% 4%;
+    --foreground: 210 40% 95%;
+    
+    /* Card System */
+    --card: 222 47% 6%;
+    --card-foreground: 210 40% 95%;
+    --card-border: 222 47% 12%;
+    
+    /* Interactive Elements */
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 95%;
+    
+    /* Primary Mission Control Blue */
+    --primary: 200 100% 60%;
+    --primary-foreground: 222 47% 4%;
+    --primary-glow: 200 100% 70%;
+    
+    /* Secondary Systems */
+    --secondary: 222 47% 12%;
+    --secondary-foreground: 210 40% 85%;
+    
+    /* Muted Interface Elements */
+    --muted: 222 47% 8%;
+    --muted-foreground: 215 20% 65%;
+    
+    /* Accent Highlights */
+    --accent: 222 47% 12%;
+    --accent-foreground: 210 40% 95%;
+    
+    /* Alert Systems */
+    --destructive: 0 84% 55%;
     --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    
+    /* Interface Borders */
+    --border: 222 47% 12%;
+    --input: 222 47% 12%;
+    --ring: 200 100% 60%;
+    
+    /* Metric-Specific Neon Colors */
+    --heat: 0 100% 60%;
+    --heat-glow: 0 100% 70%;
+    --air: 180 100% 60%;
+    --air-glow: 180 100% 70%;
+    --flood: 220 100% 60%;
+    --flood-glow: 220 100% 70%;
+    --green: 145 100% 50%;
+    --green-glow: 145 100% 60%;
+    --waste: 280 100% 60%;
+    --waste-glow: 280 100% 70%;
+    
+    /* Wellbeing Score Colors */
+    --score-excellent: 145 100% 50%;
+    --score-good: 80 100% 50%;
+    --score-fair: 45 100% 50%;
+    --score-poor: 15 100% 50%;
+    --score-critical: 0 100% 50%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    --gradient-heat: linear-gradient(135deg, hsl(var(--heat)) 0%, hsl(var(--heat-glow)) 100%);
+    --gradient-air: linear-gradient(135deg, hsl(var(--air)) 0%, hsl(var(--air-glow)) 100%);
+    --gradient-flood: linear-gradient(135deg, hsl(var(--flood)) 0%, hsl(var(--flood-glow)) 100%);
+    --gradient-green: linear-gradient(135deg, hsl(var(--green)) 0%, hsl(var(--green-glow)) 100%);
+    --gradient-waste: linear-gradient(135deg, hsl(var(--waste)) 0%, hsl(var(--waste-glow)) 100%);
+    
+    /* Shadows & Glows */
+    --glow-primary: 0 0 20px hsl(var(--primary) / 0.3);
+    --glow-heat: 0 0 20px hsl(var(--heat) / 0.3);
+    --glow-air: 0 0 20px hsl(var(--air) / 0.3);
+    --glow-flood: 0 0 20px hsl(var(--flood) / 0.3);
+    --glow-green: 0 0 20px hsl(var(--green) / 0.3);
+    --glow-waste: 0 0 20px hsl(var(--waste) / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +151,159 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  /* Metric Card Variants */
+  .metric-card-heat {
+    @apply bg-gradient-to-br from-card via-card to-red-500/10 border-red-500/20;
+    box-shadow: var(--glow-heat);
+  }
+  
+  .metric-card-air {
+    @apply bg-gradient-to-br from-card via-card to-cyan-500/10 border-cyan-500/20;
+    box-shadow: var(--glow-air);
+  }
+  
+  .metric-card-flood {
+    @apply bg-gradient-to-br from-card via-card to-blue-500/10 border-blue-500/20;
+    box-shadow: var(--glow-flood);
+  }
+  
+  .metric-card-green {
+    @apply bg-gradient-to-br from-card via-card to-green-500/10 border-green-500/20;
+    box-shadow: var(--glow-green);
+  }
+  
+  .metric-card-waste {
+    @apply bg-gradient-to-br from-card via-card to-purple-500/10 border-purple-500/20;
+    box-shadow: var(--glow-waste);
+  }
+
+  /* Wellbeing Gauge */
+  .wellbeing-gauge {
+    @apply relative rounded-full p-1;
+    background: conic-gradient(
+      from 0deg,
+      hsl(var(--score-critical)) 0deg 72deg,
+      hsl(var(--score-poor)) 72deg 144deg,
+      hsl(var(--score-fair)) 144deg 216deg,
+      hsl(var(--score-good)) 216deg 288deg,
+      hsl(var(--score-excellent)) 288deg 360deg
+    );
+  }
+
+  /* Breathing Animation for Wellbeing Score */
+  .breathing-glow {
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  /* Pulsing Animation for Active States */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Hover Scale Effect */
+  .hover-scale {
+    @apply transition-all duration-300 hover:scale-105;
+  }
+
+  /* Neon Text Effects */
+  .text-neon-primary {
+    color: hsl(var(--primary));
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  }
+
+  .text-neon-heat {
+    color: hsl(var(--heat));
+    text-shadow: 0 0 10px hsl(var(--heat) / 0.5);
+  }
+
+  .text-neon-air {
+    color: hsl(var(--air));
+    text-shadow: 0 0 10px hsl(var(--air) / 0.5);
+  }
+
+  .text-neon-flood {
+    color: hsl(var(--flood));
+    text-shadow: 0 0 10px hsl(var(--flood) / 0.5);
+  }
+
+  .text-neon-green {
+    color: hsl(var(--green));
+    text-shadow: 0 0 10px hsl(var(--green) / 0.5);
+  }
+
+  .text-neon-waste {
+    color: hsl(var(--waste));
+    text-shadow: 0 0 10px hsl(var(--waste) / 0.5);
+  }
+}
+
+@layer utilities {
+  /* Animation Keyframes */
+  @keyframes breathe {
+    0%, 100% {
+      box-shadow: 
+        0 0 20px hsl(var(--primary) / 0.3),
+        0 0 40px hsl(var(--primary) / 0.2),
+        0 0 60px hsl(var(--primary) / 0.1);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 
+        0 0 30px hsl(var(--primary) / 0.4),
+        0 0 60px hsl(var(--primary) / 0.3),
+        0 0 90px hsl(var(--primary) / 0.2);
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Animation Utilities */
+  .animate-breathe {
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out;
   }
 }
