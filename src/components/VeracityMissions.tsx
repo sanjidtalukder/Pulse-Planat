@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
+import Webcam from "react-webcam";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +13,10 @@ import {
   Trophy,
   Target,
   Users,
-  CheckCircle
+  CheckCircle,
+  X,
+  RotateCcw,
+  Download
 } from "lucide-react";
 
 // Mock missions data
@@ -77,14 +81,209 @@ const userStats = {
 
 export const VeracityMissions = () => {
   const [selectedMission, setSelectedMission] = useState<string | null>(null);
+  const [cameraActive, setCameraActive] = useState(false);
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [facingMode, setFacingMode] = useState<"user" | "environment">("environment");
+  const [cameraError, setCameraError] = useState<string | null>(null);
+  const [cameraLoading, setCameraLoading] = useState(false);
+  const webcamRef = useRef<Webcam>(null);
 
   const handleStartMission = (missionId: string) => {
     console.log(`Starting mission: ${missionId}`);
     // In real app: navigate to mission form/camera interface
   };
 
+  const openCamera = async (missionId: string) => {
+    console.log("Opening camera for mission:", missionId);
+    setSelectedMission(missionId);
+    setCameraLoading(true);
+    setCameraError(null);
+    
+    // Check if browser supports getUserMedia
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setCameraError("Camera not supported in this browser");
+      setCameraLoading(false);
+      return;
+    }
+    
+    try {
+      // Test camera access
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // Close the test stream immediately
+      stream.getTracks().forEach(track => track.stop());
+      
+      setCameraActive(true);
+    } catch (error) {
+      console.error("Camera access error:", error);
+      setCameraError("Camera access denied. Please check permissions.");
+    } finally {
+      setCameraLoading(false);
+    }
+  };
+
+  const capturePhoto = useCallback(() => {
+    if (webcamRef.current) {
+      const imageSrc = webcamRef.current.getScreenshot();
+      if (imageSrc) {
+        setCapturedImage(imageSrc);
+      }
+    }
+  }, [webcamRef]);
+
+  const retakePhoto = () => {
+    setCapturedImage(null);
+  };
+
+  const switchCamera = () => {
+    setFacingMode(prevMode => prevMode === "user" ? "environment" : "user");
+  };
+
+  const submitPhoto = () => {
+    if (capturedImage && selectedMission) {
+      console.log(`Submitting photo for mission: ${selectedMission}`);
+      // In real app: upload image and mission data to server
+      closeCamera();
+    }
+  };
+
+  const downloadPhoto = () => {
+    if (capturedImage) {
+      const link = document.createElement('a');
+      link.href = capturedImage;
+      link.download = `veracity-mission-${selectedMission}-${Date.now()}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  const closeCamera = () => {
+    setCameraActive(false);
+    setCapturedImage(null);
+    setSelectedMission(null);
+    setCameraError(null);
+    setCameraLoading(false);
+  };
+
+  const videoConstraints = {
+    facingMode: facingMode,
+    width: { ideal: 1280 },
+    height: { ideal: 720 }
+  };
+
+  const handleUserMedia = () => {
+    console.log("Camera accessed successfully");
+    setCameraError(null);
+  };
+
+  const handleUserMediaError = (error: string | DOMException) => {
+    console.error("Camera error:", error);
+    setCameraError("Unable to access camera. Please check permissions.");
+  };
+
   return (
-    <div className="min-h-screen bg-background p-4 space-y-6">
+    <div className="min-h-screen bg-background p-4 space-y-6 relative">
+      {/* Camera Overlay */}
+      {cameraActive && (
+        <div className="fixed inset-0 bg-black z-50 flex flex-col">
+          <div className="absolute top-4 left-4 right-4 z-10 flex justify-between items-center">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={closeCamera}
+              className="bg-gray-800/70 text-white rounded-full"
+            >
+              <X className="w-6 h-6" />
+            </Button>
+            
+            {!capturedImage && (
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={switchCamera}
+                className="bg-gray-800/70 text-white rounded-full"
+              >
+                <RotateCcw className="w-5 h-5" />
+              </Button>
+            )}
+          </div>
+          
+          <div className="flex-1 relative flex items-center justify-center">
+            {cameraError ? (
+              <div className="text-white text-center p-4">
+                <p className="mb-4">{cameraError}</p>
+                <Button onClick={closeCamera} className="bg-neon-primary">
+                  Close
+                </Button>
+              </div>
+            ) : capturedImage ? (
+              <div className="w-full h-full flex items-center justify-center">
+                <img 
+                  src={capturedImage} 
+                  alt="Captured" 
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            ) : (
+              <Webcam
+                ref={webcamRef}
+                audio={false}
+                screenshotFormat="image/jpeg"
+                videoConstraints={videoConstraints}
+                forceScreenshotSourceSize={true}
+                className="w-full h-full object-cover"
+                screenshotQuality={1}
+                onUserMedia={handleUserMedia}
+                onUserMediaError={handleUserMediaError}
+                mirrored={facingMode === "user"}
+              />
+            )}
+          </div>
+          
+          {!cameraError && (
+            <div className="absolute bottom-8 left-0 right-0 flex justify-center">
+              {capturedImage ? (
+                <div className="flex space-x-4">
+                  <Button 
+                    onClick={retakePhoto}
+                    className="bg-white/20 text-white rounded-full h-14 w-14"
+                  >
+                    <RotateCcw className="w-6 h-6" />
+                  </Button>
+                  <Button 
+                    onClick={downloadPhoto}
+                    className="bg-white/20 text-white rounded-full h-14 w-14"
+                  >
+                    <Download className="w-6 h-6" />
+                  </Button>
+                  <Button 
+                    onClick={submitPhoto}
+                    className="bg-neon-primary text-white rounded-full h-14 w-14"
+                  >
+                    <CheckCircle className="w-6 h-6" />
+                  </Button>
+                </div>
+              ) : (
+                <Button 
+                  onClick={capturePhoto}
+                  className="bg-white rounded-full h-14 w-14 border-4 border-gray-300"
+                />
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Loading Overlay */}
+      {cameraLoading && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center">
+          <div className="text-white text-center">
+            <p>Requesting camera access...</p>
+            <div className="mt-4 w-12 h-12 border-4 border-t-neon-primary border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin mx-auto"></div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="text-center pt-4 animate-fade-in">
         <h1 className="text-2xl font-bold text-neon-primary mb-2">
@@ -143,12 +342,17 @@ export const VeracityMissions = () => {
                 key={mission.id}
                 className={`cursor-pointer transition-all duration-300 hover-scale animate-slide-up border-${mission.type}/20 bg-gradient-to-br from-card via-card to-neon-${mission.type}/5`}
                 style={{ animationDelay: `${index * 100}ms` }}
-                onClick={() => setSelectedMission(mission.id)}
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-lg bg-neon-${mission.type}/10`}>
+                      <div 
+                        className={`p-2 rounded-lg bg-neon-${mission.type}/10 cursor-pointer`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openCamera(mission.id);
+                        }}
+                      >
                         <Icon className={`w-5 h-5 text-neon-${mission.type}`} />
                       </div>
                       <div>
