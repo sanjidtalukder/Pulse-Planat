@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +11,8 @@ import {
   ToggleLeft,
   ToggleRight,
   Layers,
-  Satellite
+  Satellite,
+  Users
 } from "lucide-react";
 
 // Mock map data
@@ -88,6 +90,7 @@ export const OrbitView = () => {
               }
             </Button>
             <div className="flex items-center space-x-2">
+              <Users className="w-4 h-4 text-neon-citizen" />
               <span className="text-sm font-medium">Citizen Reports</span>
               <Badge variant="secondary" className="text-xs">
                 {mockMapData.citizenReports.total}
@@ -99,38 +102,79 @@ export const OrbitView = () => {
 
       {/* Map Simulation */}
       <section className="animate-slide-up delay-200">
-        <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-xl border border-card-border h-64 overflow-hidden">
+        <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-xl border border-card-border h-96 overflow-hidden">
           {/* Map overlay effect */}
           <div className="absolute inset-0 bg-grid-pattern opacity-10" />
           
-          {/* Active layer visualization */}
-          <div className="absolute inset-4 space-y-2">
-            <div className="text-center">
-              <p className="text-xs text-muted-foreground mb-2">
-                {viewMode === "nasa" ? "Satellite Data View" : "Citizen Reports View"}
-              </p>
+          {/* NASA Data View */}
+          {viewMode === "nasa" && (
+            <div className="absolute inset-0 p-4">
+              <div className="text-center mb-4">
+                <p className="text-sm text-muted-foreground">
+                  Satellite Data View
+                </p>
+              </div>
+              
+              {/* Simulated data points */}
+              <div className="space-y-3">
+                {Object.entries(mockMapData.nasaLayers).map(([layer, data]) => {
+                  if (!data.active) return null;
+                  const Icon = layerIcons[layer as keyof typeof layerIcons];
+                  return (
+                    <div 
+                      key={layer}
+                      className="flex items-center space-x-3 p-3 bg-black/30 rounded-lg"
+                    >
+                      <Icon className={`w-5 h-5 text-neon-${layer}`} />
+                      <div>
+                        <p className="text-sm font-medium capitalize text-foreground">{layer} Layer</p>
+                        <p className="text-xs text-muted-foreground">{data.intensity}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            
-            {/* Simulated data points */}
-            {activeLayers.map((layer, index) => {
-              const Icon = layerIcons[layer as keyof typeof layerIcons];
-              return (
-                <div 
-                  key={layer}
-                  className={`absolute w-3 h-3 rounded-full animate-pulse-glow text-neon-${layer}`}
-                  style={{
-                    top: `${20 + index * 15}%`,
-                    left: `${30 + index * 20}%`
-                  }}
-                >
-                  <Icon className="w-full h-full" />
-                </div>
-              );
-            })}
-          </div>
+          )}
+          
+          {/* Citizen Reports View */}
+          {viewMode === "citizen" && (
+            <div className="absolute inset-0 p-4">
+              <div className="text-center mb-4">
+                <p className="text-sm text-muted-foreground">
+                  Community Reports View
+                </p>
+              </div>
+              
+              {/* Recent reports visualization */}
+              <div className="space-y-3">
+                {mockMapData.citizenReports.recent.map((report, index) => {
+                  const Icon = layerIcons[report.type as keyof typeof layerIcons];
+                  return (
+                    <div 
+                      key={index}
+                      className="flex items-center space-x-3 p-3 bg-black/30 rounded-lg"
+                    >
+                      <Icon className={`w-5 h-5 text-neon-${report.type}`} />
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{report.location}</p>
+                        <p className="text-xs text-muted-foreground">{report.time}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              <div className="absolute bottom-4 left-4">
+                <Badge variant="secondary">
+                  {mockMapData.citizenReports.total} Active Reports
+                </Badge>
+              </div>
+            </div>
+          )}
 
           {/* Mode indicator */}
-          <div className="absolute bottom-4 left-4">
+          <div className="absolute top-4 right-4">
             <Badge variant={viewMode === "nasa" ? "default" : "secondary"}>
               {viewMode === "nasa" ? "🛰️ Satellite" : "👥 Community"}
             </Badge>
@@ -152,7 +196,7 @@ export const OrbitView = () => {
               variant={activeLayers.includes(layer) ? "default" : "outline"}
               onClick={() => toggleLayer(layer)}
               className={`justify-start space-x-2 ${
-                activeLayers.includes(layer) ? `text-neon-${layer}` : ''
+                activeLayers.includes(layer) ? `bg-neon-${layer}/10 border-neon-${layer} text-neon-${layer}` : ''
               }`}
             >
               <Icon className="w-4 h-4" />
