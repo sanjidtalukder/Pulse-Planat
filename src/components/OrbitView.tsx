@@ -642,7 +642,7 @@ export const OrbitView = () => {
             ) : (
               /* Community View - User Reports List (NO MAP) */
               <div className="p-4 min-h-[500px]">
-                <div className="mb-6">
+                {/* <div className="mb-6">
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <h3 className="text-green-400 text-xl font-bold flex items-center space-x-2">
@@ -656,10 +656,10 @@ export const OrbitView = () => {
                     <Badge variant="secondary" className="bg-green-500/20 text-green-400 text-lg py-1">
                       {reports.length} Active Reports
                     </Badge>
-                  </div>
+                  </div> */}
                   
                   {/* Quick Stats */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                  {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                     <div className="bg-slate-800/30 rounded-lg p-3 text-center">
                       <div className="text-green-400 font-bold text-lg">{mockMapData.citizenReports.total}</div>
                       <div className="text-slate-400 text-xs">Total Reports</div>
@@ -676,15 +676,66 @@ export const OrbitView = () => {
                       <div className="text-purple-400 font-bold text-lg">15min</div>
                       <div className="text-slate-400 text-xs">Avg. Response</div>
                     </div>
-                  </div>
-                </div>
+                  </div> */}
+                {/* </div> */}
 
                 {/* Community Reports List */}
-                <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+                {/* <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
                   {reports.map((report) => (
                     <UserReportCard key={report.id} report={report} />
                   ))}
-                </div>
+                </div> */}
+
+                 {/* Community View - User Reports List (NO MAP)  */}
+<div className="p-4 min-h-[500px] flex flex-col">
+  <div className="mb-6 flex-shrink-0">
+    <div className="flex items-center justify-between mb-3">
+      <div>
+        <h3 className="text-green-400 text-xl font-bold flex items-center space-x-2">
+          <Users className="w-6 h-6" />
+          <span>Community Reports Feed</span>
+        </h3>
+        <p className="text-slate-400 text-sm mt-1">
+          Real-time reports from {mockMapData.cityStats.population} citizens
+        </p>
+      </div>
+      <Badge variant="secondary" className="bg-green-500/20 text-green-400 text-lg py-1">
+        {reports.length} Active Reports
+      </Badge>
+    </div>
+    
+    {/* Quick Stats */}
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+      <div className="bg-slate-800/30 rounded-lg p-3 text-center">
+        <div className="text-green-400 font-bold text-lg">{mockMapData.citizenReports.total}</div>
+        <div className="text-slate-400 text-xs">Total Reports</div>
+      </div>
+      <div className="bg-slate-800/30 rounded-lg p-3 text-center">
+        <div className="text-blue-400 font-bold text-lg">32</div>
+        <div className="text-slate-400 text-xs">Verified Users</div>
+      </div>
+      <div className="bg-slate-800/30 rounded-lg p-3 text-center">
+        <div className="text-yellow-400 font-bold text-lg">89%</div>
+        <div className="text-slate-400 text-xs">Response Rate</div>
+      </div>
+      <div className="bg-slate-800/30 rounded-lg p-3 text-center">
+        <div className="text-purple-400 font-bold text-lg">15min</div>
+        <div className="text-slate-400 text-xs">Avg. Response</div>
+      </div>
+    </div>
+  </div>
+
+  {/* Scrollable Reports Area */}
+  <div className="flex-1 min-h-0">
+    <div className="h-full overflow-y-auto pr-2">
+      <div className="space-y-4 pb-2"> {/* Added padding bottom */}
+        {reports.map((report) => (
+          <UserReportCard key={report.id} report={report} />
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
               </div>
             )}
           </CardContent>
