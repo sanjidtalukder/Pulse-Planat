@@ -115,12 +115,12 @@ const Index = () => {
           </TabsList>
 
           {/* User Info & Logout */}
-          <div className="px-3 flex items-center gap-3">
-            <div className="flex items-center gap-2 text-sm">
+          <div className="px-3 flex flex-col items-center gap-1">
+            <div className="flex flex-col items-center gap-1 text-sm">
               <img 
                 src={user?.photoURL || "https://static.vecteezy.com/system/resources/previews/024/183/535/original/male-avatar-portrait-of-a-young-man-with-glasses-illustration-of-male-character-in-modern-color-style-vector.jpg"}  // ✅ optional chaining ব্যবহার করুন
                 alt={user?.displayName || "User"} 
-                className="w-6 h-6 rounded-full"
+                className="w-6 h-6  rounded-full "
               />
               <span className="hidden sm:inline">{user?.displayName || user?.email}</span>
             </div>
