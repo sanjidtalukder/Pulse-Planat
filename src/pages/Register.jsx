@@ -191,20 +191,24 @@ const Register = () => {
           </div>
 
           {/* Register Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-white text-blue-600 font-semibold py-3 rounded-lg hover:bg-gray-100 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                Creating account...
-              </>
-            ) : (
-              "Create Account"
-            )}
-          </button>
+      <button
+  type="submit"
+  disabled={loading}
+  className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-3 rounded-lg 
+             hover:from-indigo-600 hover:to-purple-700 
+             transition duration-200 
+             disabled:opacity-50 disabled:cursor-not-allowed 
+             flex items-center justify-center gap-2 shadow-md"
+>
+  {loading ? (
+    <>
+      <Loader2 className="w-5 h-5 text-white animate-spin" />
+      Creating account...
+    </>
+  ) : (
+    "Create Account"
+  )}
+</button>
         </form>
 
         {/* Divider */}

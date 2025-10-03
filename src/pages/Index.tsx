@@ -23,7 +23,7 @@ import { auth } from "../firebase/config";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const [user, setUser] = useState(null); // ✅ any সরিয়ে দিন
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
@@ -31,24 +31,25 @@ const Index = () => {
   // Listen for user state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        setLoading(false);
-      } else {
-        // If no user, redirect to login
-        navigate("/login");
-      }
+      setUser(currentUser);
+      setLoading(false);
+      // Remove the automatic redirect to login
+      // if (!currentUser) {
+      //   navigate("/login");
+      // }
     });
     return () => unsubscribe();
-  }, [navigate]); // ✅ auth dependency সরিয়ে দিন
+  }, [navigate]);
 
-  // Google login (if needed for quick login from main page)
+  // Google login function
   const handleGoogleLogin = async () => {
     try {
+      setLoading(true);
       await signInWithPopup(auth, provider);
+      // User will be set automatically via onAuthStateChanged
     } catch (error) {
       console.error("Login error:", error);
-      navigate("/login");
+      setLoading(false);
     }
   };
 
@@ -56,7 +57,7 @@ const Index = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate("/login");
+      // User state will be cleared automatically via onAuthStateChanged
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -67,6 +68,42 @@ const Index = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  // Show login screen if user is not authenticated
+  if (!user) {
+    return (
+      <div className="min-h-screen w-full bg-gradient-to-br from-blue-900 via-purple-900 to-black flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
+          <div className="text-center mb-8">
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <span className="text-white font-bold text-2xl">AC</span>
+            </div>
+            <h1 className="text-3xl font-bold text-white mb-2">Astra Command</h1>
+            <p className="text-white/70">Sign in to access your dashboard</p>
+          </div>
+          
+          <button
+            onClick={handleGoogleLogin}
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-3 bg-white text-gray-700 hover:bg-gray-100 font-medium py-3 px-4 rounded-xl transition-all duration-200 border border-gray-300 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <img 
+              src="https://www.google.com/favicon.ico" 
+              alt="Google" 
+              className="w-5 h-5"
+            />
+            {loading ? "Signing in..." : "Sign in with Google"}
+          </button>
+
+          <div className="mt-6 text-center">
+            <p className="text-white/50 text-sm">
+              By signing in, you agree to our Terms of Service
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -118,11 +155,11 @@ const Index = () => {
           <div className="px-3 flex flex-col items-center gap-1">
             <div className="flex flex-col items-center gap-1 text-sm">
               <img 
-                src={user?.photoURL || "https://static.vecteezy.com/system/resources/previews/024/183/535/original/male-avatar-portrait-of-a-young-man-with-glasses-illustration-of-male-character-in-modern-color-style-vector.jpg"}  // ✅ optional chaining ব্যবহার করুন
-                alt={user?.displayName || "User"} 
-                className="w-6 h-6  rounded-full "
+                src={user.photoURL || "https://static.vecteezy.com/system/resources/previews/024/183/535/original/male-avatar-portrait-of-a-young-man-with-glasses-illustration-of-male-character-in-modern-color-style-vector.jpg"}
+                alt={user.displayName || "User"} 
+                className="w-6 h-6 rounded-full"
               />
-              <span className="hidden sm:inline">{user?.displayName || user?.email}</span>
+              <span className="hidden sm:inline">{user.displayName || user.email}</span>
             </div>
             <button 
               onClick={handleLogout}
