@@ -1,63 +1,56 @@
-🚀 ASTRA Command – Web Dashboard
+📱 ASTRA App – Citizen Engagement Platform
 
-ASTRA Command (Web) is the mission control center for resilient cities.  
-It transforms NASA’s open data APIs into actionable intelligence, giving planners the power to detect crises, simulate interventions, engage citizens, and verify impact — all in one immersive dashboard.  
+ASTRA App is the citizen’s lifeline in the ASTRA ecosystem.  
+It transforms NASA’s open data APIs into real‑time alerts, missions, and AR blueprints that empower communities to detect threats, validate data, and co‑design resilient cities.  
 
-🌍 From space to street to solution, Astra Command Web is where data becomes decision.  
+🌍 From space to street, the ASTRA App puts NASA’s satellites in every citizen’s pocket.  
 
 ---
 
 ✨ Features
 
-📊 Pulse – The Early Warning System
-- Real‑time wellbeing index powered by NASA APIs.  
-- Heat, flood, and air quality hotspots visualized on a live map.  
-- Instant detection of crises before they explode.  
+📊 Street Pulse – Real‑Time Wellbeing
+- Five live indicators: Heat, Air, Flood, Green, Waste.  
+- Alerts powered by NASA MODIS (heat), IMERG (flood), and AOD (air quality).  
+- Simple card‑based UI for instant awareness.  
 
-🧠 DataLab – The Orbital Brain
-- Fuses multiple NASA APIs: MODIS (heat), IMERG (flood), Landsat (vegetation), VIIRS (energy), GRACE (water stress), SEDAC (socio‑economic).  
-- Machine learning models predict patterns of environmental injustice.  
-- Interactive map layers for deep exploration.  
+🌐 Orbit View – Space Meets Street
+- Swipe between satellite imagery and street‑level photos.  
+- Compare NASA data with citizen reports.  
+- Powered by Landsat and VIIRS APIs.  
 
-🏙 Simulate – Urban Surgery
-- Test interventions before they’re built.  
-- Cooling corridors with MODIS thermal data.  
-- Drainage systems with IMERG flood models.  
-- Green roofs with Landsat NDVI analysis.  
-- Before/after sliders for instant visual impact.  
+🎯 Veracity Missions – Gamified Citizen Science
+- Capture photos of heat zones, flood risks, or pollution hotspots.  
+- Missions validate NASA datasets in real time.  
+- Every submission strengthens ML models in DataLab.  
 
-🗳 Engage – Democracy Meets Data
-- Citizens vote on proposed interventions directly in the dashboard.  
-- Transparent feedback loop: “You Said → We Did.”  
-- Powered by NASA SEDAC socio‑economic data for equity‑driven planning.  
+🏙 Civic Blueprint – AR Urban Planning
+- Citizens preview interventions in their own neighborhoods.  
+- AR overlays show green roofs, cooling corridors, drainage systems.  
+- Proposals can be submitted directly to planners.  
 
-✅ Impact – NASA‑Verified Results
-- Closes the loop with measurable outcomes.  
-- MODIS confirms temperature drops.  
-- Landsat shows greenery increase.  
-- IMERG validates flood protection.  
-- Every number is verified by NASA’s own satellites.  
+📜 Legacy Track – History & Accountability
+- Timeline of past interventions.  
+- NASA APIs confirm measurable impact: cooler streets, greener cover, safer floods.  
+- Transparent accountability: “You Said → We Did.”  
 
 ---
 
 🛠 Technology Stack
 
 Frontend:  
-- React 18  
+- React Native (Expo)  
 - TypeScript  
-- Tailwind CSS  
-- shadcn/ui + Radix UI  
-
-Data & Visualization:  
-- Recharts  
-- Leaflet  
-- TanStack Query  
+- Tailwind CSS (NativeWind)  
+- React Navigation  
 
 Backend & Auth:  
-- Firebase (Authentication, Firestore, Realtime Database, Storage)  
+- Firebase (Auth, Firestore, Realtime DB, Storage)  
 
-NASA APIs Integrated:  
-- MODIS, IMERG, Landsat, VIIRS, GRACE, SEDAC  
+Data & APIs:  
+- NASA APIs: MODIS, IMERG, Landsat, VIIRS, GRACE, SEDAC  
+- Mapbox / Leaflet for maps  
+- Recharts for data visualization  
 
 ---
 
@@ -66,6 +59,7 @@ NASA APIs Integrated:
 ✅ Prerequisites
 - Node.js (18+)  
 - npm or yarn  
+- Expo CLI  
 - Firebase Project (with Google OAuth enabled)  
 
 ⚡ Installation
@@ -73,7 +67,7 @@ NASA APIs Integrated:
 
 Clone the repository
 git clone <repository-url>
-cd astra-command-web
+cd astra-app
 
 Install dependencies
 npm install
@@ -83,10 +77,10 @@ Add Firebase config
 Copy your Firebase keys to: src/firebase/config.js
 
 Start development server
-npm run dev
+expo start
 `
 
-📍 The app will run at http://localhost:5173  
+📍 The app will run on iOS/Android via Expo Go.  
 
 ---
 
@@ -96,11 +90,11 @@ npm run dev
 src/
 ├── components/           
 │   ├── ui/               # Reusable UI
-│   ├── Pulse/            # Wellbeing index
-│   ├── DataLab/          # NASA API fusion + ML
-│   ├── Simulate/         # Urban intervention testing
-│   ├── Engage/           # Civic voting + feedback
-│   └── Impact/           # Verified outcomes
+│   ├── StreetPulse/      # Wellbeing index
+│   ├── OrbitView/        # Satellite vs street
+│   ├── VeracityMissions/ # Citizen missions
+│   ├── CivicBlueprint/   # AR planning
+│   └── LegacyTrack/      # Historical impact
 ├── firebase/             # Firebase config
 ├── App.tsx               # Main app
 └── index.tsx             # Entry point
@@ -110,27 +104,20 @@ src/
 
 🔧 Development Scripts
 `bash
-npm run dev      # Start local server
-npm run build    # Build for production
-npm run lint     # Run ESLint checks
-npm run preview  # Preview production build
+npm run start     # Start Expo dev server
+npm run android   # Run on Android
+npm run ios       # Run on iOS
+npm run build     # Build production app
 `
 
 ---
 
 🌐 Deployment
 
-Vercel
+Expo EAS Build
 `bash
-npm run build
-vercel --prod
-`
-
-Netlify
-`bash
-npm run build
-
-Then drag & drop /dist folder into Netlify dashboard
+eas build -p android --profile production
+eas build -p ios --profile production
 `
 
 ---
@@ -143,16 +130,10 @@ Then drag & drop /dist folder into Netlify dashboard
 
 ---
 
-📱 Responsive Design
-- Mobile‑first approach  
-- Grid‑based layouts  
-- Touch‑friendly navigation  
-
----
-
-🎨 Customization
-- Edit tailwind.config.js → change color schemes & spacing  
-- Style components using Tailwind classes or shadcn/ui overrides  
+📱 User Experience
+- Mobile‑first design → optimized for Android & iOS.  
+- Cinematic UI → glowing cards, AR overlays, swipe gestures.  
+- Immersive storytelling → every feature feels like a mission.  
 
 ---
 
@@ -179,9 +160,8 @@ Then drag & drop /dist folder into Netlify dashboard
 
 - NASA Open Data APIs → MODIS, IMERG, Landsat, VIIRS, GRACE, SEDAC  
 - Firebase Team → Robust backend services  
-- Tailwind CSS → Utility‑first styling  
-- React Community → Continuous improvements  
-- shadcn/ui + Radix UI → Beautiful, reusable components  
+- React Native Community → Cross‑platform excellence  
+- Tailwind CSS / NativeWind → Utility‑first styling  
 - AI Tools that supported ideation & documentation:  
   - Microsoft Copilot  
   - DeepSeek  
