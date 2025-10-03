@@ -14,8 +14,9 @@ It transforms NASA’s open data APIs into real‑time alerts, missions, and AR 
 - Alerts powered by NASA MODIS (heat), IMERG (flood), and AOD (air quality).  
 - Simple card‑based UI for instant awareness.
   
-   ![WhatsApp Image 2025-10-03 at 16 31 25_504a1ab2](https://github.com/user-attachments/assets/46d38e91-114e-4613-9a82-09c7a1623983)
-
+ <p align="center">
+  <img src="https://github.com/user-attachments/assets/46d38e91-114e-4613-9a82-09c7a1623983" alt="Street Pulse" width="600"/>
+</p>
 ---
 
 # 🌐 Orbit View – Space Meets Street
@@ -23,7 +24,9 @@ It transforms NASA’s open data APIs into real‑time alerts, missions, and AR 
 - Compare NASA data with citizen reports.  
 - Powered by Landsat and VIIRS APIs.
   
-![WhatsApp Image 2025-10-03 at 16 31 25_9afb5ee2](https://github.com/user-attachments/assets/b52b0f70-a57d-4e90-b700-c0b0b977f4bb)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b52b0f70-a57d-4e90-b700-c0b0b977f4bb" alt="Orbit View" width="600"/>
+</p>
 
 ---
 
@@ -32,8 +35,9 @@ It transforms NASA’s open data APIs into real‑time alerts, missions, and AR 
 - Missions validate NASA datasets in real time.  
 - Every submission strengthens ML models in DataLab.
   
-![WhatsApp Image 2025-10-03 at 16 31 25_35c179e6](https://github.com/user-attachments/assets/d9a4f48d-9ee7-415d-94cc-be06d7786923)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d9a4f48d-9ee7-415d-94cc-be06d7786923" alt="Veracity Missions" width="600"/>
+</p>
 --- 
 
 
@@ -42,7 +46,9 @@ It transforms NASA’s open data APIs into real‑time alerts, missions, and AR 
 - AR overlays show green roofs, cooling corridors, drainage systems.  
 - Proposals can be submitted directly to planners.
   
-![WhatsApp Image 2025-10-03 at 16 31 26_54210596](https://github.com/user-attachments/assets/c3361d2e-da3e-4dd7-844e-e1bc6c4c5e40)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c3361d2e-da3e-4dd7-844e-e1bc6c4c5e40" alt="Civic Blueprint" width="600"/>
+</p>
 
 ---
 
@@ -51,7 +57,9 @@ It transforms NASA’s open data APIs into real‑time alerts, missions, and AR 
 - NASA APIs confirm measurable impact: cooler streets, greener cover, safer floods.  
 - Transparent accountability: “You Said → We Did.”
   
-![WhatsApp Image 2025-10-03 at 16 31 26_5484816b](https://github.com/user-attachments/assets/f2a9a2ba-f4c8-4422-851e-99a7f7291f0e)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f2a9a2ba-f4c8-4422-851e-99a7f7291f0e" alt="Legacy Track" width="600"/>
+</p>
 
 ---
 
