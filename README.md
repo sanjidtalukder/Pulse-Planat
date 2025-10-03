@@ -1,4 +1,4 @@
-📱 ASTRA App – Citizen Engagement Platform
+# 📱 ASTRA App – Citizen Engagement Platform
 
 ASTRA App is the citizen’s lifeline in the ASTRA ecosystem.  
 It transforms NASA’s open data APIs into real‑time alerts, missions, and AR blueprints that empower communities to detect threats, validate data, and co‑design resilient cities.  
@@ -7,36 +7,44 @@ It transforms NASA’s open data APIs into real‑time alerts, missions, and AR 
 
 ---
 
-✨ Features
+ # ✨ Features
 
-📊 Street Pulse – Real‑Time Wellbeing
+# 📊 Street Pulse – Real‑Time Wellbeing
 - Five live indicators: Heat, Air, Flood, Green, Waste.  
 - Alerts powered by NASA MODIS (heat), IMERG (flood), and AOD (air quality).  
-- Simple card‑based UI for instant awareness.  
+- Simple card‑based UI for instant awareness.
+   
+---
 
-🌐 Orbit View – Space Meets Street
+# 🌐 Orbit View – Space Meets Street
 - Swipe between satellite imagery and street‑level photos.  
 - Compare NASA data with citizen reports.  
-- Powered by Landsat and VIIRS APIs.  
+- Powered by Landsat and VIIRS APIs.
 
-🎯 Veracity Missions – Gamified Citizen Science
+---
+
+# 🎯 Veracity Missions – Gamified Citizen Science
 - Capture photos of heat zones, flood risks, or pollution hotspots.  
 - Missions validate NASA datasets in real time.  
-- Every submission strengthens ML models in DataLab.  
+- Every submission strengthens ML models in DataLab.
 
-🏙 Civic Blueprint – AR Urban Planning
+--- 
+
+# 🏙 Civic Blueprint – AR Urban Planning
 - Citizens preview interventions in their own neighborhoods.  
 - AR overlays show green roofs, cooling corridors, drainage systems.  
-- Proposals can be submitted directly to planners.  
+- Proposals can be submitted directly to planners.
+  
+---
 
-📜 Legacy Track – History & Accountability
+# 📜 Legacy Track – History & Accountability
 - Timeline of past interventions.  
 - NASA APIs confirm measurable impact: cooler streets, greener cover, safer floods.  
 - Transparent accountability: “You Said → We Did.”  
 
 ---
 
-🛠 Technology Stack
+# 🛠 Technology Stack
 
 Frontend:  
 - React Native (Expo)  
@@ -54,7 +62,7 @@ Data & APIs:
 
 ---
 
-🚀 Getting Started
+# 🚀 Getting Started
 
 ✅ Prerequisites
 - Node.js (18+)  
@@ -112,7 +120,7 @@ npm run build     # Build production app
 
 ---
 
-🌐 Deployment
+# 🌐 Deployment
 
 Expo EAS Build
 `bash
@@ -130,14 +138,14 @@ eas build -p ios --profile production
 
 ---
 
-📱 User Experience
+# 📱 User Experience
 - Mobile‑first design → optimized for Android & iOS.  
 - Cinematic UI → glowing cards, AR overlays, swipe gestures.  
 - Immersive storytelling → every feature feels like a mission.  
 
 ---
 
-📈 Impact Metrics
+# 📈 Impact Metrics
 
 - 🌡 4.2°C cooler streets (MODIS verified)  
 - 🌳 28% more greenery (Landsat NDVI)  
@@ -147,7 +155,7 @@ eas build -p ios --profile production
 
 ---
 
-🤝 Contributing
+# 🤝 Contributing
 1. Fork the repo  
 2. Create a branch → git checkout -b feature/awesome  
 3. Commit → git commit -m "Add awesome feature"  
@@ -156,7 +164,7 @@ eas build -p ios --profile production
 
 ---
 
-🙏 Credits & Acknowledgments
+# 🙏 Credits & Acknowledgments
 
 - NASA Open Data APIs → MODIS, IMERG, Landsat, VIIRS, GRACE, SEDAC  
 - Firebase Team → Robust backend services  
@@ -170,9 +178,9 @@ eas build -p ios --profile production
 
 ---
 
-📄 License
+# 📄 License
 Licensed under the MIT License.  
 
 ---
 
-✨ Built with ❤ by Team Quintessence Minus Infinity for the NASA Space Apps Challenge 2025.
+# ✨ Built with ❤ by Team Quintessence Minus Infinity for the NASA Space Apps Challenge 2025.
